@@ -110,7 +110,6 @@ public abstract class AbstractCreateStatementInterceptor extends JdbcInterceptor
      * regarding caching for performance, continue to use Proxy.getProxyClass(). This will need to be revisited if that
      * method is marked for removal.
      */
-    @SuppressWarnings("deprecation")
     protected Constructor<?> getConstructor(int idx, Class<?> clazz) throws NoSuchMethodException {
         if (constructors[idx] == null) {
             Class<?> proxyClass = Proxy.getProxyClass(AbstractCreateStatementInterceptor.class.getClassLoader(),

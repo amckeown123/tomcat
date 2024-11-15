@@ -60,7 +60,7 @@ public class StatementDecoratorInterceptor extends AbstractCreateStatementInterc
      * performance, continue to use Proxy.getProxyClass(). This will need to be
      * revisited if that method is marked for removal.
      */
-    @SuppressWarnings("deprecation")
+
     protected Constructor<?> getResultSetConstructor() throws NoSuchMethodException {
         if (resultSetConstructor == null) {
             Class<?> proxyClass = Proxy.getProxyClass(StatementDecoratorInterceptor.class.getClassLoader(),

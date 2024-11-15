@@ -366,7 +366,7 @@ public class ConnectionPool {
      * performance, continue to use Proxy.getProxyClass(). This will need to be
      * revisited if that method is marked for removal.
      */
-    @SuppressWarnings("deprecation")
+    
     public Constructor<?> getProxyConstructor(boolean xa) throws NoSuchMethodException {
         //cache the constructor
         if (proxyClassConstructor == null ) {
