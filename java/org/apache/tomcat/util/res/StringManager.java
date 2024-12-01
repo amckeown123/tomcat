@@ -224,7 +224,7 @@ public class StringManager {
              * Therefore keep size at or below capacity. removeEldestEntry() executes after insertion therefore the test
              * for removal needs to use one less than the maximum desired size. Note this is an LRU cache.
              */
-            map = new LinkedHashMap<>(LOCALE_CACHE_SIZE, 0.75f, true) {
+            map = new LinkedHashMap<Locale, StringManager>(LOCALE_CACHE_SIZE, 0.75f, true) {
                 private static final long serialVersionUID = 1L;
 
                 @Override

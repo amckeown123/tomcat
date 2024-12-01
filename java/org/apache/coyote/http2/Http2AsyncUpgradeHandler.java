@@ -57,7 +57,7 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
         super(protocol, adapter, coyoteRequest, socketWrapper);
     }
 
-    private final CompletionHandler<Long,Void> errorCompletion = new CompletionHandler<>() {
+    private final CompletionHandler<Long,Void> errorCompletion = new CompletionHandler<Long,Void>() {
         @Override
         public void completed(Long result, Void attachment) {
         }
@@ -67,7 +67,7 @@ public class Http2AsyncUpgradeHandler extends Http2UpgradeHandler {
             error.set(t);
         }
     };
-    private final CompletionHandler<Long,Void> applicationErrorCompletion = new CompletionHandler<>() {
+    private final CompletionHandler<Long,Void> applicationErrorCompletion = new CompletionHandler<Long,Void>() {
         @Override
         public void completed(Long result, Void attachment) {
         }

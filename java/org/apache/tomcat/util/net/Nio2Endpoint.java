@@ -524,7 +524,7 @@ public class Nio2Endpoint extends AbstractNetworkChannelEndpoint<Nio2Channel,Asy
         private boolean writeNotify = false;
 
         private CompletionHandler<Integer, SendfileData> sendfileHandler
-            = new CompletionHandler<>() {
+            = new CompletionHandler<Integer, SendfileData>() {
 
             @Override
             public void completed(Integer nWrite, SendfileData attachment) {
@@ -610,7 +610,7 @@ public class Nio2Endpoint extends AbstractNetworkChannelEndpoint<Nio2Channel,Asy
             nioChannels = endpoint.getNioChannels();
             socketBufferHandler = channel.getBufHandler();
 
-            this.readCompletionHandler = new CompletionHandler<>() {
+            this.readCompletionHandler = new CompletionHandler<Integer, ByteBuffer>() {
                 @Override
                 public void completed(Integer nBytes, ByteBuffer attachment) {
                     if (log.isTraceEnabled()) {
@@ -658,7 +658,7 @@ public class Nio2Endpoint extends AbstractNetworkChannelEndpoint<Nio2Channel,Asy
                 }
             };
 
-            this.writeCompletionHandler = new CompletionHandler<>() {
+            this.writeCompletionHandler = new CompletionHandler<Integer, ByteBuffer>() {
                 @Override
                 public void completed(Integer nBytes, ByteBuffer attachment) {
                     boolean notify = false;
@@ -712,7 +712,7 @@ public class Nio2Endpoint extends AbstractNetworkChannelEndpoint<Nio2Channel,Asy
                 }
             };
 
-            gatheringWriteCompletionHandler = new CompletionHandler<>() {
+            gatheringWriteCompletionHandler = new CompletionHandler<<Long, ByteBuffer[]>() {
                 @Override
                 public void completed(Long nBytes, ByteBuffer[] attachment) {
                     boolean notify = false;

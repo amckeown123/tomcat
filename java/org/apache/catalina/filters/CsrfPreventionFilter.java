@@ -639,7 +639,7 @@ public class CsrfPreventionFilter extends CsrfPreventionFilterBase {
         private final Map<T,T> cache;
 
         public LruCache(final int cacheSize) {
-            cache = new LinkedHashMap<>() {
+            cache = new LinkedHashMap<T,T>() {
                 private static final long serialVersionUID = 1L;
 
                 @Override

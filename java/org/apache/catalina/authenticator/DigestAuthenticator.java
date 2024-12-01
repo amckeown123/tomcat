@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +42,7 @@ import org.apache.tomcat.util.buf.HexUtils;
 import org.apache.tomcat.util.buf.MessageBytes;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.apache.tomcat.util.http.parser.Authorization;
+import org.apache.tomcat.util.res.StringManager;
 import org.apache.tomcat.util.security.ConcurrentMessageDigest;
 
 
@@ -424,7 +426,7 @@ public class DigestAuthenticator extends AuthenticatorBase {
          * This is a FIFO cache as using an older nonce should not delay its removal from the cache in favour of more
          * recent values.
          */
-        nonces = new LinkedHashMap<>() {
+        nonces = new LinkedHashMap<String,NonceInfo>() {
 
             private static final long serialVersionUID = 1L;
             private static final long LOG_SUPPRESS_TIME = 5 * 60 * 1000;

@@ -79,7 +79,7 @@ public class LockOutRealm extends CombinedRealm {
          * LRU cache so if the cache size is exceeded the users who most recently failed authentication will be
          * retained.
          */
-        failedUsers = new LinkedHashMap<>(cacheSize, 0.75f, true) {
+        failedUsers = new LinkedHashMap<<String,LockRecord>(cacheSize, 0.75f, true) {
             private static final long serialVersionUID = 1L;
 
             @Override
