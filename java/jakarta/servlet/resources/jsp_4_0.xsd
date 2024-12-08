@@ -58,7 +58,7 @@
     </xsd:documentation>
   </xsd:annotation>
 
-  <xsd:include schemaLocation="jakartaee_11.xsd"/>
+  <xsd:include schemaLocation="jakartaee_10.xsd"/>
 
 
 <!-- **************************************************** -->
