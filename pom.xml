@@ -28,7 +28,66 @@
 <distribution>repo</distribution>
 </license>
 </licenses>
+
+
+  <properties>
+
+    <!-- Java SE version -->
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+
+    <maven.compiler.release>21</maven.compiler.release>
+
+  </properties>
+ <build> 
+     <defaultGoal>install</defaultGoal>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+        </plugin>
+      </plugins>
+</pluginManagement>  
+  
+ 
+ <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <release>21</release>
+          <!--
+          <verbose>true</verbose>
+          <fork>true</fork>
+          <executable>/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/bin/javac</executable>
+          -->
+        </configuration>
+      </plugin>
+ </plugins>
+</build>
 <dependencies><!-- https://mvnrepository.com/artifact/org.apache.ant/ant -->
+<!-- https://mvnrepository.com/artifact/org.apache.tomcat/jakartaee-migration -->
+<dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>jakartaee-migration</artifactId>
+    <version>1.0.9</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-websocket -->
+<dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>tomcat-websocket</artifactId>
+    <version>10.1.35</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-jakarta-server -->
+<dependency>
+    <groupId>org.eclipse.jetty.websocket</groupId>
+    <artifactId>websocket-jakarta-server</artifactId>
+    <version>11.0.0</version>
+</dependency>
+
 <dependency>
     <groupId>org.apache.ant</groupId>
     <artifactId>ant</artifactId>
@@ -95,5 +154,24 @@
 <version>11.0.1</version>
 <scope>compile</scope>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-beans</artifactId>
+    <version>6.1.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.core -->
+<dependency>
+    <groupId>org.eclipse.jdt</groupId>
+    <artifactId>org.eclipse.jdt.core</artifactId>
+    <version>3.40.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/biz.aQute.bnd/biz.aQute.bnd.annotation -->
+<dependency>
+    <groupId>biz.aQute.bnd</groupId>
+    <artifactId>biz.aQute.bnd.annotation</artifactId>
+    <version>7.1.0</version>
+</dependency>
+
 </dependencies>
 </project>

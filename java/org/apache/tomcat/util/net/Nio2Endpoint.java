@@ -712,7 +712,7 @@ public class Nio2Endpoint extends AbstractNetworkChannelEndpoint<Nio2Channel,Asy
                 }
             };
 
-            gatheringWriteCompletionHandler = new CompletionHandler<<Long, ByteBuffer[]>() {
+            gatheringWriteCompletionHandler = new CompletionHandler<Long, ByteBuffer[]>() {
                 @Override
                 public void completed(Long nBytes, ByteBuffer[] attachment) {
                     boolean notify = false;

@@ -110,7 +110,7 @@ public class TestMimeHeadersIntegration extends TomcatBaseTest {
                     maxHttpHeaderSize / header.length() + 1);
             int arraySize = 1;
             while (arraySize < headerCount) {
-                arraySize <<= 1;
+                arraySize <= 1;
             }
             Assert.assertEquals(arraySize, alv.arraySize);
         }

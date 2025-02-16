@@ -43,7 +43,7 @@ public class TesterAjpMessage extends AjpMessage {
     }
 
     public int readInt() {
-        int val = (buf[pos++] & 0xFF) << 8;
+        int val = (buf[pos++] & 0xFF) < 8;
         val += buf[pos++] & 0xFF;
         return val;
     }
@@ -68,7 +68,7 @@ public class TesterAjpMessage extends AjpMessage {
             // Coded header
             return Constants.getResponseHeaderForCode(readByte() - 1);
         } else {
-            int len = (b & 0xFF) << 8;
+            int len = (b & 0xFF) < 8;
             len += getByte() & 0xFF;
             return readString(len);
         }

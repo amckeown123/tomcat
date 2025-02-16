@@ -15,23 +15,20 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="https://jakarta.ee/xml/ns/jakartaee"
-            xmlns:jakartaee="https://jakarta.ee/xml/ns/jakartaee"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            elementFormDefault="qualified"
-            attributeFormDefault="unqualified"
-            version="6.1"/>
-<web-fragment>
-    <name>tomcat-cxf</name>
+<web-fragment xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                      https://jakarta.ee/xml/ns/jakartaee/web-fragment_6_1.xsd"
+              version="6.1">
+    <distributable />
     <ordering>
-        <before>
-            <others/>
-        </before>
+        <after>
+            <others />
+        </after>
     </ordering>
+    <name>cxf</name>
     <servlet>
         <servlet-name>ApacheTomcatCXFServlet</servlet-name>
-        <display-name>Apache Tomcat CXF Servlet</display-name>
         <servlet-class>org.apache.cxf.cdi.CXFCdiServlet</servlet-class>    
         <load-on-startup>1</load-on-startup>
     </servlet>

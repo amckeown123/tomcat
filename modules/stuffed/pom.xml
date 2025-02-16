@@ -29,44 +29,44 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>org.apache.catalina.startup.Tomcat</mainClass>
-        <tomcat.version>11.0.0-M22</tomcat.version>
+        <version.tomcat>11.0.0-M22</version.tomcat>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina</artifactId>
-            <version>${tomcat.version}</version>
+            <version>${version.tomcat}</version>
         </dependency>
         <!-- Optional: Jasper -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jasper</artifactId>
-            <version>${tomcat.version}</version>
+            <version>${version.tomcat}</version>
         </dependency>
         <!-- Optional: Clustering -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina-ha</artifactId>
-            <version>${tomcat.version}</version>
+            <version>${version.tomcat}</version>
         </dependency>
         <!-- Optional: Websockets -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-websocket</artifactId>
-            <version>${tomcat.version}</version>
+            <version>${version.tomcat}</version>
         </dependency>
         <!-- Optional: DBCP based pool -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-dbcp</artifactId>
-            <version>${tomcat.version}</version>
+            <version>${version.tomcat}</version>
         </dependency>
         <!-- Optional: Store configuration listener -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-storeconfig</artifactId>
-            <version>${tomcat.version}</version>
+            <version>${version.tomcat}</version>
         </dependency>
     </dependencies>
 

@@ -6306,7 +6306,7 @@ public class openssl_h {
     public static MemorySegment OPENSSL_FILE() {
         class Holder {
             static final MemorySegment OPENSSL_FILE
-                = openssl_h.LIBRARY_ARENA.allocateFrom("/tmp/jextract$7967504926277577155.h");
+                = openssl_h.LIBRARY_ARENA.allocateUtf8String("/tmp/jextract$7967504926277577155.h");
         }
         return Holder.OPENSSL_FILE;
     }
@@ -6363,7 +6363,7 @@ public class openssl_h {
     public static MemorySegment PEM_STRING_ECPARAMETERS() {
         class Holder {
             static final MemorySegment PEM_STRING_ECPARAMETERS
-                = openssl_h.LIBRARY_ARENA.allocateFrom("EC PARAMETERS");
+                = openssl_h.LIBRARY_ARENA.allocateUtf8String("EC PARAMETERS");
         }
         return Holder.PEM_STRING_ECPARAMETERS;
     }

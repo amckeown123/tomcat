@@ -200,13 +200,13 @@ public class OpenSSLLibrary {
                     if ("auto".equals(engineName)) {
                         ENGINE_register_all_complete();
                     } else {
-                        var engine = memorySession.allocateFrom(engineName);
+                        var engine = memorySession.allocateUtf8String(engineName);
                         enginePointer = ENGINE_by_id(engine);
                         if (MemorySegment.NULL.equals(enginePointer)) {
-                            enginePointer = ENGINE_by_id(memorySession.allocateFrom("dynamic"));
+                            enginePointer = ENGINE_by_id(memorySession.allocateUtf8String("dynamic"));
                             if (enginePointer != null) {
-                                if (ENGINE_ctrl_cmd_string(enginePointer, memorySession.allocateFrom("SO_PATH"), engine, 0) == 0
-                                        || ENGINE_ctrl_cmd_string(enginePointer, memorySession.allocateFrom("LOAD"),
+                                if (ENGINE_ctrl_cmd_string(enginePointer, memorySession.allocateUtf8String("SO_PATH"), engine, 0) == 0
+                                        || ENGINE_ctrl_cmd_string(enginePointer, memorySession.allocateUtf8String("LOAD"),
                                                 MemorySegment.NULL, 0) == 0) {
                                     // Engine load error
                                     ENGINE_free(enginePointer);
@@ -230,7 +230,7 @@ public class OpenSSLLibrary {
                 // Set the random seed, translated to the Java way
                 boolean seedDone = false;
                 if (SSLRandomSeed != null && SSLRandomSeed.length() != 0 && !"builtin".equals(SSLRandomSeed)) {
-                    var randomSeed = memorySession.allocateFrom(SSLRandomSeed);
+                    var randomSeed = memorySession.allocateUtf8String(SSLRandomSeed);
                     seedDone = RAND_load_file(randomSeed, 128) > 0;
                     if (!seedDone) {
                         log.warn(sm.getString("openssllibrary.errorSettingSSLRandomSeed", SSLRandomSeed, OpenSSLLibrary.getLastError()));
@@ -240,7 +240,7 @@ public class OpenSSLLibrary {
                     // Use a regular random to get some bytes
                     SecureRandom random = new SecureRandom();
                     byte[] randomBytes = random.generateSeed(128);
-                    RAND_seed(memorySession.allocateFrom(ValueLayout.JAVA_BYTE, randomBytes), 128);
+                    RAND_seed(memorySession.allocateArray(ValueLayout.JAVA_BYTE, randomBytes), 128);
                 }
 
                 if (!openssl_h_Compatibility.OPENSSL3 && !openssl_h_Compatibility.BORINGSSL) {
@@ -252,9 +252,9 @@ public class OpenSSLLibrary {
                     final boolean enterFipsMode;
                     int fipsModeState = FIPS_OFF;
                     if (openssl_h_Compatibility.OPENSSL3) {
-                        var md = EVP_MD_fetch(MemorySegment.NULL, memorySession.allocateFrom("SHA-512"), MemorySegment.NULL);
+                        var md = EVP_MD_fetch(MemorySegment.NULL, memorySession.allocateUtf8String("SHA-512"), MemorySegment.NULL);
                         var provider = EVP_MD_get0_provider(md);
-                        String name = OSSL_PROVIDER_get0_name(provider).getString(0);
+                        String name = OSSL_PROVIDER_get0_name(provider).getUtf8String(0);
                         EVP_MD_free(md);
                         if ("fips".equals(name)) {
                             fipsModeState = FIPS_ON;
@@ -339,7 +339,7 @@ public class OpenSSLLibrary {
                     }
                 }
 
-                log.info(sm.getString("openssllibrary.initializedOpenSSL", OpenSSL_version(0).getString(0)));
+                log.info(sm.getString("openssllibrary.initializedOpenSSL", OpenSSL_version(0).getUtf8String(0)));
                 OpenSSLStatus.setAvailable(true);
             }
         }
@@ -434,7 +434,7 @@ public class OpenSSLLibrary {
             var sslCtx = SSL_CTX_new(TLS_server_method());
             try {
                 openssl_h_Compatibility.SSL_CTX_set_options(sslCtx, SSL_OP_ALL());
-                SSL_CTX_set_cipher_list(sslCtx, localArena.allocateFrom(ciphers));
+                SSL_CTX_set_cipher_list(sslCtx, localArena.allocateUtf8String(ciphers));
                 var ssl = SSL_new(sslCtx);
                 SSL_set_accept_state(ssl);
                 try {
@@ -467,7 +467,7 @@ public class OpenSSLLibrary {
         for (int i = 0; i < len; i++) {
             MemorySegment cipher = openssl_h_Compatibility.OPENSSL_sk_value(sk, i);
             MemorySegment cipherName = SSL_CIPHER_get_name(cipher);
-            ciphers.add(cipherName.getString(0));
+            ciphers.add(cipherName.getUtf8String(0));
         }
         return ciphers.toArray(new String[0]);
     }
@@ -490,9 +490,9 @@ public class OpenSSLLibrary {
             try (var localArena = Arena.ofConfined()) {
                 do {
                     // Loop until getLastErrorNumber() returns SSL_ERROR_NONE
-                    var buf = localArena.allocate(ValueLayout.JAVA_BYTE, OPENSSL_ERROR_MESSAGE_BUFFER_SIZE);
+                    var buf = localArena.allocateArray(ValueLayout.JAVA_BYTE, OPENSSL_ERROR_MESSAGE_BUFFER_SIZE);
                     ERR_error_string_n(error, buf, OPENSSL_ERROR_MESSAGE_BUFFER_SIZE);
-                    String err = buf.getString(0);
+                    String err = buf.toString();
                     if (sslError == null) {
                         sslError = err;
                     }

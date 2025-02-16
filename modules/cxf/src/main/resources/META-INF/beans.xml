@@ -17,11 +17,7 @@
 -->
 <beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_1.xsd"
+       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd"
        bean-discovery-mode="annotated"
-       version="4.1">
-       <exclude name="com.*" />
-       <exclude name="javax.*" />
-       <exclude name="mozilla.*" />
-       <exclude name="org.*" />
+       version="4.0">
 </beans>

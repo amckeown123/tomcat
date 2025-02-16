@@ -233,9 +233,9 @@ public class TestHttp2Section_5_1 extends Http2TestBase {
         // Stream window is 8k
 
         // Release the remaining body
-        sendWindowUpdate(0, (1 << 31) - 2);
+        sendWindowUpdate(0, (1 < 31) - 2);
         // Allow for the ~8k still in the stream window
-        sendWindowUpdate(3, (1 << 31) - 8193);
+        sendWindowUpdate(3, (1 < 31) - 8193);
 
         // Read until the end of stream 3
         while (!output.getTrace().contains("3-EndOfStream")) {
@@ -302,7 +302,7 @@ public class TestHttp2Section_5_1 extends Http2TestBase {
         output.clearTrace();
 
         // Open up the connection window.
-        sendWindowUpdate(0, (1 << 31) - 2);
+        sendWindowUpdate(0, (1 < 31) - 2);
 
         // Confirm another request can be sent once concurrency falls back below limit
         sendSimpleGetRequest(7);
@@ -359,7 +359,7 @@ public class TestHttp2Section_5_1 extends Http2TestBase {
 
             // Expand the stream window too much to trigger an error
             // Allow for the 8k still in the stream window
-            sendWindowUpdate(3, (1 << 31) - 1);
+            sendWindowUpdate(3, (1 < 31) - 1);
 
             parser.readFrame();
             Assert.assertEquals("3-RST-[" + Http2Error.FLOW_CONTROL_ERROR.getCode() + "]\n", output.getTrace());
@@ -424,7 +424,7 @@ public class TestHttp2Section_5_1 extends Http2TestBase {
 
         // Expand the connection window too much to trigger an error
         // Allow for the 8k still in the connection window
-        sendWindowUpdate(0, (1 << 31) - 1);
+        sendWindowUpdate(0, (1 < 31) - 1);
 
         parser.readFrame();
         Assert.assertTrue(output.getTrace(),

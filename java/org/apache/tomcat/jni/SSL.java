@@ -26,8 +26,8 @@ public final class SSL {
      * Define the certificate algorithm types
      */
     public static final int SSL_ALGO_UNKNOWN = 0;
-    public static final int SSL_ALGO_RSA     = (1<<0);
-    public static final int SSL_ALGO_DSA     = (1<<1);
+    public static final int SSL_ALGO_RSA     = (1 << 0);
+    public static final int SSL_ALGO_DSA     = (1 << 1);
     public static final int SSL_ALGO_ALL     = (SSL_ALGO_RSA|SSL_ALGO_DSA);
 
     public static final int SSL_AIDX_RSA     = 0;
@@ -52,24 +52,24 @@ public final class SSL {
      * Define the SSL options
      */
     public static final int SSL_OPT_NONE           = 0;
-    public static final int SSL_OPT_RELSET         = (1<<0);
-    public static final int SSL_OPT_STDENVVARS     = (1<<1);
-    public static final int SSL_OPT_EXPORTCERTDATA = (1<<3);
-    public static final int SSL_OPT_FAKEBASICAUTH  = (1<<4);
-    public static final int SSL_OPT_STRICTREQUIRE  = (1<<5);
-    public static final int SSL_OPT_OPTRENEGOTIATE = (1<<6);
+    public static final int SSL_OPT_RELSET         = (1 << 0);
+    public static final int SSL_OPT_STDENVVARS     = (1 << 1);
+    public static final int SSL_OPT_EXPORTCERTDATA = (1 << 3);
+    public static final int SSL_OPT_FAKEBASICAUTH  = (1 << 4);
+    public static final int SSL_OPT_STRICTREQUIRE  = (1 << 5);
+    public static final int SSL_OPT_OPTRENEGOTIATE = (1 << 6);
     public static final int SSL_OPT_ALL            = (SSL_OPT_STDENVVARS|SSL_OPT_EXPORTCERTDATA|SSL_OPT_FAKEBASICAUTH|SSL_OPT_STRICTREQUIRE|SSL_OPT_OPTRENEGOTIATE);
 
     /*
      * Define the SSL Protocol options
      */
     public static final int SSL_PROTOCOL_NONE  = 0;
-    public static final int SSL_PROTOCOL_SSLV2 = (1<<0);
-    public static final int SSL_PROTOCOL_SSLV3 = (1<<1);
-    public static final int SSL_PROTOCOL_TLSV1 = (1<<2);
-    public static final int SSL_PROTOCOL_TLSV1_1 = (1<<3);
-    public static final int SSL_PROTOCOL_TLSV1_2 = (1<<4);
-    public static final int SSL_PROTOCOL_TLSV1_3 = (1<<5);
+    public static final int SSL_PROTOCOL_SSLV2 = (1 << 0);
+    public static final int SSL_PROTOCOL_SSLV3 = (1 << 1);
+    public static final int SSL_PROTOCOL_TLSV1 = (1 << 2);
+    public static final int SSL_PROTOCOL_TLSV1_1 = (1 << 3);
+    public static final int SSL_PROTOCOL_TLSV1_2 = (1 << 4);
+    public static final int SSL_PROTOCOL_TLSV1_3 = (1 << 5);
     public static final int SSL_PROTOCOL_ALL =
             (SSL_PROTOCOL_TLSV1 | SSL_PROTOCOL_TLSV1_1 | SSL_PROTOCOL_TLSV1_2 | SSL_PROTOCOL_TLSV1_3);
 

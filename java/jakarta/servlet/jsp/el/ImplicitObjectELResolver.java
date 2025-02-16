@@ -227,7 +227,7 @@ public class ImplicitObjectELResolver extends ELResolver {
 
         public Map<String,String[]> getHeaderValues() {
             if (this.headerValues == null) {
-                this.headerValues = new ScopeMap<String,String>() {
+                this.headerValues = new ScopeMap<String,String[]>() {
                     @Override
                     protected Enumeration<String> getAttributeNames() {
                         return ((HttpServletRequest) page.getRequest()).getHeaderNames();
@@ -318,7 +318,7 @@ public class ImplicitObjectELResolver extends ELResolver {
 
         public Map<String,String[]> getParamValues() {
             if (this.paramValues == null) {
-                this.paramValues = new ScopeMap<String,String>() {
+                this.paramValues = new ScopeMap<String,String[]>() {
                     @Override
                     protected String[] getAttribute(String name) {
                         return page.getRequest().getParameterValues(name);
@@ -400,7 +400,8 @@ public class ImplicitObjectELResolver extends ELResolver {
     }
 
 
-    private abstract static class ScopeMap<V> extends AbstractMap<String,V> {
+    @SuppressWarnings("hiding")
+	private abstract static class ScopeMap<String, V> extends AbstractMap<String,V> {
 
         protected abstract Enumeration<String> getAttributeNames();
 
@@ -497,7 +498,8 @@ public class ImplicitObjectELResolver extends ELResolver {
 
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         public final V get(Object key) {
             if (key != null) {
                 return getAttribute((String) key);
@@ -516,7 +518,8 @@ public class ImplicitObjectELResolver extends ELResolver {
             return null;
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         public final V remove(Object key) {
             Objects.requireNonNull(key);
             this.removeAttribute((String) key);

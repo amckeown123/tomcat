@@ -699,7 +699,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
 
         final String cipherSuiteSpec = buf.toString();
         try (var localArena = Arena.ofConfined()) {
-            SSL_set_cipher_list(state.ssl, localArena.allocateFrom(cipherSuiteSpec));
+            SSL_set_cipher_list(state.ssl, localArena.allocateUtf8String(cipherSuiteSpec));
         } catch (Exception e) {
             throw new IllegalStateException(sm.getString("engine.failedCipherSuite", cipherSuiteSpec), e);
         }
@@ -837,7 +837,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
     private byte[] getPeerCertificate() {
         try (var localArena = Arena.ofConfined()) {
             MemorySegment/*(X509*)*/ x509 = openssl_h_Compatibility.SSL_get_peer_certificate(state.ssl);
-            MemorySegment bufPointer = localArena.allocateFrom(ValueLayout.ADDRESS, MemorySegment.NULL);
+            MemorySegment bufPointer = localArena.allocate(ValueLayout.ADDRESS, MemorySegment.NULL);
             int length = i2d_X509(x509, bufPointer);
             if (length <= 0) {
                 return null;
@@ -860,7 +860,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
         try (var localArena = Arena.ofConfined()) {
             for (int i = 0; i < len; i++) {
                 MemorySegment/*(X509*)*/ x509 = openssl_h_Compatibility.OPENSSL_sk_value(sk, i);
-                MemorySegment bufPointer = localArena.allocateFrom(ValueLayout.ADDRESS, MemorySegment.NULL);
+                MemorySegment bufPointer = localArena.allocate(ValueLayout.ADDRESS, MemorySegment.NULL);
                 int length = i2d_X509(x509, bufPointer);
                 if (length < 0) {
                     certificateChain[i] = new byte[0];
@@ -878,7 +878,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
     private String getProtocolNegotiated() {
         try (var localArena = Arena.ofConfined()) {
             MemorySegment lenAddress = localArena.allocate(ValueLayout.JAVA_INT);
-            MemorySegment protocolPointer = localArena.allocateFrom(ValueLayout.ADDRESS, MemorySegment.NULL);
+            MemorySegment protocolPointer = localArena.allocate(ValueLayout.ADDRESS, MemorySegment.NULL);
             SSL_get0_alpn_selected(state.ssl, protocolPointer, lenAddress);
             if (MemorySegment.NULL.equals(protocolPointer)) {
                 return null;
@@ -924,7 +924,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
         }
         clearLastError();
         int code;
-        if (SSL_get_version(state.ssl).getString(0).equals(Constants.SSL_PROTO_TLSv1_3)) {
+        if (SSL_get_version(state.ssl).getUtf8String(0).equals(Constants.SSL_PROTO_TLSv1_3)) {
             state.phaState = PHAState.START;
             code = SSL_verify_client_post_handshake(state.ssl);
         } else {
@@ -1024,7 +1024,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
                     selectedProtocol = getProtocolNegotiated();
                 }
                 session.lastAccessedTime = System.currentTimeMillis();
-                version = SSL_get_version(state.ssl).getString(0);
+                version = SSL_get_version(state.ssl).getUtf8String(0);
                 handshakeFinished = true;
                 return SSLEngineResult.HandshakeStatus.FINISHED;
             }
@@ -1315,7 +1315,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
             if (MemorySegment.NULL.equals(ocspOneReq)) {
                 return V_OCSP_CERTSTATUS_UNKNOWN();
             }
-            MemorySegment bufPointer = localArena.allocateFrom(ValueLayout.ADDRESS, MemorySegment.NULL);
+            MemorySegment bufPointer = localArena.allocate(ValueLayout.ADDRESS, MemorySegment.NULL);
             int requestLength = i2d_OCSP_REQUEST(ocspRequest, bufPointer);
             if (requestLength <= 0) {
                 return V_OCSP_CERTSTATUS_UNKNOWN();
@@ -1346,8 +1346,8 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
                 baos.write(responseBuf, 0, read);
             }
             byte[] responseData = baos.toByteArray();
-            var nativeResponseData = localArena.allocateFrom(ValueLayout.JAVA_BYTE, responseData);
-            var nativeResponseDataPointer = localArena.allocateFrom(ValueLayout.ADDRESS, nativeResponseData);
+            var nativeResponseData = localArena.allocateArray(ValueLayout.JAVA_BYTE, responseData);
+            var nativeResponseDataPointer = localArena.allocate(ValueLayout.ADDRESS, nativeResponseData);
             ocspResponse = d2i_OCSP_RESPONSE(MemorySegment.NULL, nativeResponseDataPointer, responseData.length);
             if (!MemorySegment.NULL.equals(ocspResponse)) {
                 if (OCSP_response_status(ocspResponse) == OCSP_RESPONSE_STATUS_SUCCESSFUL()) {
@@ -1606,7 +1606,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
                     if (destroyed) {
                         return INVALID_CIPHER;
                     }
-                    ciphers = SSL_CIPHER_get_name(SSL_get_current_cipher(state.ssl)).getString(0);
+                    ciphers = SSL_CIPHER_get_name(SSL_get_current_cipher(state.ssl)).getUtf8String(0);
                 }
                 String c = OpenSSLCipherConfigurationParser.openSSLToJsse(ciphers);
                 if (c != null) {
@@ -1630,7 +1630,7 @@ public final class OpenSSLEngine extends SSLEngine implements SSLUtil.ProtocolIn
             String version = null;
             synchronized (OpenSSLEngine.this) {
                 if (!destroyed) {
-                    version = SSL_get_version(state.ssl).getString(0);
+                    version = SSL_get_version(state.ssl).getUtf8String(0);
                 }
             }
             if (applicationProtocol.isEmpty()) {

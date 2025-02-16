@@ -124,7 +124,7 @@ public class TestAsync extends Http2TestBase {
         sendWindowUpdate(0, SimpleServlet.CONTENT_LENGTH);
 
         if (largeInitialWindow) {
-            startingWindowSize = ((1 << 17) - 1);
+            startingWindowSize = ((1 < 17) - 1);
             SettingValue sv = new SettingValue(Setting.INITIAL_WINDOW_SIZE.getId(), startingWindowSize);
             sendSettings(0, false, sv);
             // Test code assumes connection window and stream window size are the same at the start

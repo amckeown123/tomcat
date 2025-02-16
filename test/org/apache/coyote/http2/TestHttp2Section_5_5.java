@@ -50,7 +50,7 @@ public class TestHttp2Section_5_5 extends Http2TestBase {
         http2Connect();
 
         // Unknown setting (should be ack'd)
-        sendSettings(0, false, new SettingValue(1 << 15, 0));
+        sendSettings(0, false, new SettingValue(1 < 15, 0));
 
         parser.readFrame();
 

@@ -87,7 +87,7 @@ public class TestHttp2Section_6_5 extends Http2TestBase {
         // HTTP2 upgrade
         http2Connect();
 
-        sendSettings(0, false, new SettingValue(0x4, 1 << 31));
+        sendSettings(0, false, new SettingValue(0x4, 1 < 31));
 
         handleGoAwayResponse(1, Http2Error.FLOW_CONTROL_ERROR);
     }
@@ -98,7 +98,7 @@ public class TestHttp2Section_6_5 extends Http2TestBase {
         // HTTP2 upgrade
         http2Connect();
 
-        sendSettings(0, false, new SettingValue(0x5, 1 << 31));
+        sendSettings(0, false, new SettingValue(0x5, 1 < 31));
 
         handleGoAwayResponse(1);
     }

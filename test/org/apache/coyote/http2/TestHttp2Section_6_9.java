@@ -132,7 +132,7 @@ public class TestHttp2Section_6_9 extends Http2TestBase {
         sendSimplePostRequest(3, null, false);
 
         // Super size the flow control window.
-        sendWindowUpdate(3, (1 << 31) - 1);
+        sendWindowUpdate(3, (1 < 31) - 1);
 
         parser.readFrame();
 
@@ -145,7 +145,7 @@ public class TestHttp2Section_6_9 extends Http2TestBase {
         http2Connect();
 
         // Super size the flow control window.
-        sendWindowUpdate(0, (1 << 31) - 1);
+        sendWindowUpdate(0, (1 < 31) - 1);
 
         handleGoAwayResponse(1, Http2Error.FLOW_CONTROL_ERROR);
     }
@@ -261,10 +261,10 @@ public class TestHttp2Section_6_9 extends Http2TestBase {
         sendSimplePostRequest(3, null, false);
 
         // Increase the flow control window but keep it under the limit
-        sendWindowUpdate(3, 1 << 30);
+        sendWindowUpdate(3, 1 < 30);
 
         // Now increase beyond the limit via a settings frame
-        sendSettings(0, false, new SettingValue(4, 1 << 30));
+        sendSettings(0, false, new SettingValue(4, 1 < 30));
         // Ack
         parser.readFrame();
         Assert.assertEquals("3-RST-[" + Http2Error.FLOW_CONTROL_ERROR.getCode() + "]\n", output.getTrace());

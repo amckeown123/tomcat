@@ -616,7 +616,7 @@ String image = token.image;
 	 for (int i = 0; i < 13; i++) {
 	   if (jj_la1[i] == jj_gen) {
 		 for (int j = 0; j < 32; j++) {
-		   if ((jj_la1_0[i] & (1<<j)) != 0) {
+		   if ((jj_la1_0[i] & (1 << j)) != 0) {
 			 la1tokens[j] = true;
 		   }
 		 }

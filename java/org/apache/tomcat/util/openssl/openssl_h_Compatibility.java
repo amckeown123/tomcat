@@ -34,7 +34,7 @@ public class openssl_h_Compatibility {
     public static final boolean BORINGSSL;
     public static final boolean LIBRESSL;
     static {
-        String versionString = OpenSSL_version(0).getString(0);
+        String versionString = OpenSSL_version(0).getUtf8String(0);
         OPENSSL = versionString.contains("OpenSSL");
         OPENSSL3 = OPENSSL && OpenSSL_version_num() >= 0x3000000fL;
         BORINGSSL = versionString.contains("BoringSSL");
